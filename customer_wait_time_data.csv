@@ -1,0 +1,17 @@
+Process,Customer,Arrival Time,Service Time (min),Transaction Type,Server,Service Start,Service End,Wait Time (min)
+Current,1,9:00,4,Quick,Teller,9:00,9:04,0
+Current,2,9:02,4,Quick,Teller,9:04,9:08,2
+Current,3,9:10,3,Quick,Teller,9:10,9:13,0
+Current,4,9:15,3,Quick,Teller,9:15,9:18,0
+Current,5,9:30,12,Long,Teller,9:30,9:42,0
+Current,6,9:31,4,Quick,Teller,9:42,9:46,11
+Current,7,9:32,15,Long,Teller,9:46,10:01,14
+Current,8,9:33,4,Quick,Teller,10:01,10:05,28
+Express Line,1,9:00,4,Quick,Teller,9:00,9:04,0
+Express Line,2,9:02,4,Quick,Teller,9:04,9:08,2
+Express Line,3,9:10,3,Quick,Teller,9:10,9:13,0
+Express Line,4,9:15,3,Quick,Teller,9:15,9:18,0
+Express Line,5,9:30,12,Long,Personal Banker,9:30,9:42,0
+Express Line,6,9:31,4,Quick,Teller,9:31,9:35,0
+Express Line,7,9:32,15,Long,Personal Banker,9:42,9:57,10
+Express Line,8,9:33,4,Quick,Teller,9:35,9:39,2
