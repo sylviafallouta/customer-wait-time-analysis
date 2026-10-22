@@ -1,91 +1,110 @@
-Customer Wait-Time Improvement Project
+# Customer Wait-Time Improvement Project
 
-Simulated a small-branch customer queue and showed that an express line, which sends long transactions to an existing staff member, cuts average wait time by about 75% (6.9 → 1.75 minutes) without adding employees.
+**I simulated a customer line at a small branch and found that an express line could cut the average wait by about 75% (6.9 → 1.75 minutes) without hiring anyone.**
 
-Independent Systems Engineering project · Operations and process improvement · Inspired by queue patterns I observed working as a bank teller.
+*Independent Systems Engineering project*
 
-Note: All data is simulated for educational purposes. No real customer or bank data is used.
+> **Note:** All data in this project is simulated for learning purposes. I did not use any real customer or bank data.
 
-Problem
+---
 
-During busy periods, customers at a small branch can wait a long time before being served. The goal was to find what causes the waiting and design a process change that reduces it without adding staff.
+## Why I Did This Project
 
-Stakeholders and Requirements
-Stakeholder	What they need
-Customers	Short, predictable wait times
-Tellers	A steady, manageable flow of customers
-Branch manager	Better service with no added labor cost
+I work as a bank teller, and I noticed that during busy times one long transaction can hold up the whole line. A customer who only needs a quick deposit ends up waiting behind someone with a 15-minute request. I wanted to see if changing the process, instead of adding more staff, could fix this.
 
-Requirements
+## Goal
 
-R1: Reduce average customer wait time.
-R2: Add no employees (use existing staff only).
-R3: Don't make long-transaction customers wait unreasonably long.
-Current Process
+Find out why customers wait and come up with a process change that reduces wait times **without adding employees**.
 
-One teller serves every customer, first come, first served.
+## Who This Affects
 
-Show Image
+| Who | What they need |
+|---|---|
+| Customers | Short, predictable waits |
+| Tellers | A steady, manageable line |
+| Branch manager | Better service without extra labor cost |
 
-Root causes of waiting
+**My requirements for a good solution:**
+1. Lower the average wait time.
+2. Don't add any employees.
+3. Don't make customers with long transactions wait too long.
 
-Peak demand: several customers arrive close together (9:30–9:33).
-Long transactions block the line: a 12- or 15-minute transaction makes every quick customer behind it wait.
-Proposed Improvement: Express Line
+## The Current Process
 
-Transactions expected to take 10 minutes or more go to the personal banker, who is already on staff. Quick transactions stay with the teller.
+Right now, one teller serves every customer in the order they arrive.
 
-Show Image
+![Current process flowchart](current_process.png)
 
-Method
-Item	Value
-Customers simulated	8 (arrivals 9:00–9:33, with a peak at 9:30–9:33)
-Service times	3–4 min (quick) and 12–15 min (long)
-Long-transaction rule	10+ minutes goes to the personal banker
-Current process	1 teller serves everyone
-Express line	1 teller (quick) + 1 personal banker (long), same staff
-Queue rule	First come, first served at each server
-Measure	Wait time = service start − arrival time
-Tools	Google Sheets / Excel, diagrams.net
+**Why customers were waiting:**
+1. **Busy periods:** several customers show up at almost the same time (9:30–9:33).
+2. **Long transactions block the line:** when one customer takes 12–15 minutes, everyone behind them waits.
 
-Both scenarios use the same customers and the same service times, so the only thing that changes is the process. The full calculations, with formulas, are in customer_wait_time_data.xlsx, and the raw data is in customer_wait_time_data.csv.
+## My Proposed Fix: An Express Line
 
-Results
+Transactions that take **10 minutes or more** go to the personal banker, who is already on staff. Quick transactions stay with the teller, so they don't get stuck behind long ones.
 
-Show Image
+![Express-line process flowchart](express_line_process.png)
 
-Metric	Current process	Express line
-Average wait, all customers	6.88 min	1.75 min
-Average wait, quick transactions	6.83 min	0.67 min
-Average wait, long transactions	7.00 min	5.00 min
-Longest single wait	28 min	10 min
-Staff serving customers	1	2 (no one added)
+## How I Tested It
 
-Average wait dropped by about 75% without adding employees.
+I built the simulation in a spreadsheet. To make it a fair comparison, I used the **same 8 customers with the same transaction times** in both scenarios. The only thing that changes is the process.
 
-Trade-offs
-Long-transaction customers still wait. Customer 7 (15-minute transaction) waited 10 minutes because the personal banker was busy with customer 5. Long-transaction customers are still better off on average (7 → 5 min), but this is where the remaining wait is concentrated.
-The personal banker's other work is interrupted. Their time spent on the express line isn't available for their usual tasks.
-The rule depends on sorting customers correctly. Someone (a greeter or the teller) has to estimate the transaction length up front. Customers sent to the wrong line would reduce the benefit.
-Limitations and Next Steps
-The sample is small (8 customers) and simulated. The results should be validated with real, anonymized timing data before implementing.
-Test different arrival rates and peak sizes.
-Test other thresholds for "long" (for example, 8 or 12 minutes). The spreadsheet's threshold cell can be changed to do this.
-Compare other options, such as appointments for long transactions or a shared queue for both staff.
-Files
-File	Description
-customer_wait_time_data.xlsx	Both scenarios with formulas, plus a summary tab
-customer_wait_time_data.csv	Raw simulated data for both scenarios
-current_process.png	Current process flowchart
-express_line_process.png	Express-line process flowchart
-wait_time_comparison.png	Results chart
-Customer Wait-Time Improvement Project.pdf	Project report
-Skills Demonstrated
+| Item | What I used |
+|---|---|
+| Customers | 8, arriving between 9:00 and 9:33 (busiest from 9:30 to 9:33) |
+| Transaction times | 3–4 minutes (quick) and 12–15 minutes (long) |
+| "Long" transaction | 10 minutes or more |
+| Current process | 1 teller serves everyone |
+| Express line | Teller handles quick, personal banker handles long |
+| How I measured wait | Time service started − time customer arrived |
+| Tools | Google Sheets / Excel, diagrams.net |
 
-Process mapping · Bottleneck and root-cause analysis · Queue simulation · Requirements and stakeholder analysis · Trade-off evaluation · Spreadsheet modeling · Data visualization · Technical documentation
+You can see every calculation in [`customer_wait_time_data.xlsx`](customer_wait_time_data.xlsx) and the raw data in [`customer_wait_time_data.csv`](customer_wait_time_data.csv).
 
-Potential next steps include testing different customer-arrival rates, evaluating service capacity, and comparing alternative process configurations to determine whether the improvement remains effective under different conditions.
+## Results
 
-## Project Type
+![Average wait comparison chart](wait_time_comparison.png)
 
-Independent Systems Engineering project focused on operations and process improvement.
+| | Current process | Express line |
+|---|---:|---:|
+| Average wait (everyone) | 6.88 min | **1.75 min** |
+| Average wait (quick transactions) | 6.83 min | **0.67 min** |
+| Average wait (long transactions) | 7.00 min | 5.00 min |
+| Longest wait | 28 min | **10 min** |
+| Employees | Same staff | Same staff |
+
+The express line cut the average wait by about **75%** without adding anyone.
+
+## Trade-offs I Found
+
+- **Long transactions still wait sometimes.** One customer with a 15-minute transaction waited 10 minutes because the personal banker was already busy. Long-transaction customers still did better overall (7 → 5 minutes), but this is where most of the remaining wait is.
+- **The personal banker has less time for their other work.**
+- **Someone has to sort customers correctly.** If people are sent to the wrong line, the benefit goes down.
+
+## What I Learned
+
+- The problem wasn't too few people. It was how customers moved through the line. Changing the process made a big difference without spending more on staff.
+- Averages can hide problems, so I also looked at quick and long customers separately and at the single longest wait.
+- Using the same customers in both scenarios was important. Otherwise I couldn't tell whether the improvement came from the process or from different data.
+
+## Limitations and Next Steps
+
+- This is a small, simulated sample (8 customers). Before using this in real life, I would test it with real, anonymized timing data.
+- Next, I'd like to test different numbers of customers and different busy periods.
+- I'd also try other cutoffs for a "long" transaction, like 8 or 12 minutes. You can change this in the spreadsheet's Assumptions tab.
+- Other ideas to compare: appointments for long transactions, or one shared line for both staff.
+
+## Files
+
+| File | What it is |
+|---|---|
+| `customer_wait_time_data.xlsx` | Both scenarios with formulas and a summary |
+| `customer_wait_time_data.csv` | Raw simulated data |
+| `current_process.png` | Current process flowchart |
+| `express_line_process.png` | Express-line flowchart |
+| `wait_time_comparison.png` | Results chart |
+| `Customer Wait-Time Improvement Project.pdf` | Project report |
+
+## Skills Used
+
+Process mapping · Finding bottlenecks · Simulation · Requirements · Trade-off analysis · Spreadsheets · Data visualization · Documentation
