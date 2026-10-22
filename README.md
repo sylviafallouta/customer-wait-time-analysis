@@ -1,50 +1,88 @@
-# Customer Wait-Time Analysis & Process Improvement
+Customer Wait-Time Improvement Project
 
-An independent Systems Engineering project focused on identifying bottlenecks in a simulated customer-service process and evaluating a potential improvement to reduce customer wait times.
+Simulated a small-branch customer queue and showed that an express line, which sends long transactions to an existing staff member, cuts average wait time by about 75% (6.9 → 1.75 minutes) without adding employees.
 
-## Project Overview
+Independent Systems Engineering project · Operations and process improvement · Inspired by queue patterns I observed working as a bank teller.
 
-Long customer wait times can negatively affect customer satisfaction and service efficiency. This project evaluates a proposed express line to determine whether reorganizing customer flow could reduce average waiting time without increasing staffing.
+Note: All data is simulated for educational purposes. No real customer or bank data is used.
 
-## Objectives
+Problem
 
-- Analyze the existing customer-service process.
-- Identify opportunities to improve customer flow.
-- Compare baseline wait times with a proposed express-line scenario.
-- Develop a data-informed process improvement recommendation.
+During busy periods, customers at a small branch can wait a long time before being served. The goal was to find what causes the waiting and design a process change that reduces it without adding staff.
 
-## Key Results
+Stakeholders and Requirements
+Stakeholder	What they need
+Customers	Short, predictable wait times
+Tellers	A steady, manageable flow of customers
+Branch manager	Better service with no added labor cost
 
-| Metric | Current Process | Express-Line Scenario |
-|---|---:|---:|
-| Average wait time | 5.5 minutes | 1.375 minutes |
-| Change in average wait | — | 75% reduction |
+Requirements
 
-*Results are based on a simulated process and represent a modeled improvement, not a measured real-world outcome.*
+R1: Reduce average customer wait time.
+R2: Add no employees (use existing staff only).
+R3: Don't make long-transaction customers wait unreasonably long.
+Current Process
 
-## Methodology
+One teller serves every customer, first come, first served.
 
-The project examines a simulated customer-service process and compares its baseline performance with a proposed express-line configuration.
+Show Image
 
-The analysis focuses on average customer wait time as a measure of process efficiency. The results are used to evaluate the potential benefit of changing the service process without adding employees.
+Root causes of waiting
 
-## Deliverables
+Peak demand: several customers arrive close together (9:30–9:33).
+Long transactions block the line: a 12- or 15-minute transaction makes every quick customer behind it wait.
+Proposed Improvement: Express Line
 
-- **[Project Report](Customer%20Wait-Time%20Improvement%20Project.pdf)** — Project analysis and proposed improvement.
-- **[Wait-Time Data](Customer%20Wait%20Time%20Data%20-%20Express%20Line.pdf)** — Supporting data for the express-line scenario.
-- **[Current Process Flowchart](Current%20Customer%20Process.drawio%20(1).png)** — Visual representation of the existing process.
+Transactions expected to take 10 minutes or more go to the personal banker, who is already on staff. Quick transactions stay with the teller.
 
-## Skills Demonstrated
+Show Image
 
-- Process analysis and bottleneck identification
-- Quantitative reasoning and performance measurement
-- Process improvement evaluation
-- Business problem-solving
-- Technical documentation
+Method
+Item	Value
+Customers simulated	8 (arrivals 9:00–9:33, with a peak at 9:30–9:33)
+Service times	3–4 min (quick) and 12–15 min (long)
+Long-transaction rule	10+ minutes goes to the personal banker
+Current process	1 teller serves everyone
+Express line	1 teller (quick) + 1 personal banker (long), same staff
+Queue rule	First come, first served at each server
+Measure	Wait time = service start − arrival time
+Tools	Google Sheets / Excel, diagrams.net
 
-## Limitations & Next Steps
+Both scenarios use the same customers and the same service times, so the only thing that changes is the process. The full calculations, with formulas, are in customer_wait_time_data.xlsx, and the raw data is in customer_wait_time_data.csv.
 
-Because this project uses simulated data, the estimated reduction should be validated before implementation in a real service environment.
+Results
+
+Show Image
+
+Metric	Current process	Express line
+Average wait, all customers	6.88 min	1.75 min
+Average wait, quick transactions	6.83 min	0.67 min
+Average wait, long transactions	7.00 min	5.00 min
+Longest single wait	28 min	10 min
+Staff serving customers	1	2 (no one added)
+
+Average wait dropped by about 75% without adding employees.
+
+Trade-offs
+Long-transaction customers still wait. Customer 7 (15-minute transaction) waited 10 minutes because the personal banker was busy with customer 5. Long-transaction customers are still better off on average (7 → 5 min), but this is where the remaining wait is concentrated.
+The personal banker's other work is interrupted. Their time spent on the express line isn't available for their usual tasks.
+The rule depends on sorting customers correctly. Someone (a greeter or the teller) has to estimate the transaction length up front. Customers sent to the wrong line would reduce the benefit.
+Limitations and Next Steps
+The sample is small (8 customers) and simulated. The results should be validated with real, anonymized timing data before implementing.
+Test different arrival rates and peak sizes.
+Test other thresholds for "long" (for example, 8 or 12 minutes). The spreadsheet's threshold cell can be changed to do this.
+Compare other options, such as appointments for long transactions or a shared queue for both staff.
+Files
+File	Description
+customer_wait_time_data.xlsx	Both scenarios with formulas, plus a summary tab
+customer_wait_time_data.csv	Raw simulated data for both scenarios
+current_process.png	Current process flowchart
+express_line_process.png	Express-line process flowchart
+wait_time_comparison.png	Results chart
+Customer Wait-Time Improvement Project.pdf	Project report
+Skills Demonstrated
+
+Process mapping · Bottleneck and root-cause analysis · Queue simulation · Requirements and stakeholder analysis · Trade-off evaluation · Spreadsheet modeling · Data visualization · Technical documentation
 
 Potential next steps include testing different customer-arrival rates, evaluating service capacity, and comparing alternative process configurations to determine whether the improvement remains effective under different conditions.
 
